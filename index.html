@@ -6,6 +6,51 @@
   <title>QA Test – Chatbot & Popup</title>
 </head>
 <body>
+
+<script>
+      // Function to generate unique ID
+      function generateUniqueId() {
+        const timestamp = Date.now();
+        const randomString = Math.random().toString(36).substring(2, 15);
+        return `user_${timestamp}_${randomString}`;
+      }
+      window.lc = window.lc || {};
+      window.lc.debug = true; // Optional: Turn on for debugging; remove in production
+      window.lc.identity = {
+        distinctId: generateUniqueId(),
+         name: 'tunahany', 
+        email: 'yenitunahan9@dbo.com',
+        consent: true,
+   /*      attributes: {
+            memberid: 6990509,
+            plan_id: 440,
+            sponsor_id: 53,
+            state: 'none',
+            country: 'United States',
+            benefit_name: 'MSA Benefits',
+            benefit_class: 'none',
+            member_status: 6,
+            primary_coach: 'ddavis@mysecureadvantage.com',
+            is_disconnected: false,
+            enrolledinmonitoring: false,
+            age: 48,
+            pfw_score: 8.5,
+            income: '$$100,000 to $124,999',
+            marital_status: 'yes',
+            dependents: 'yes',
+        } */
+      };
+      console.log('Generated distinctId:', window.lc.identity.distinctId);
+    </script>
+
+
+
+
+
+
+
+
+
   <main style="max-width:720px;margin:40px auto;font:16px/1.6 sans-serif">
     <h1>QA Test Sayfası</h1>
     <p>Bu sayfa Popupsmart ve Chatbot davranışlarını test etmek içindir.</p>
@@ -16,20 +61,22 @@
   <!-- Chatbot embed kodu (Livechatai vb.) buraya -->
 <script
   src="https://app-dev.livechatai.com/embed.js"
-  data-id="cmf5hpojh0001jv0c8yakk5xa"
+  data-id="cmfcfhkrp0001l5048noanomq"
   async defer>
 </script>
 
-<iframe
-  src="https://app-dev.livechatai.com/aibot-iframe/cmf5hpojh0001jv0c8yakk5xa"
+<!-- <iframe
+  src="https://app-dev.livechatai.com/aibot-iframe/cmfcfhkrp0001l5048noanomq"
   style="border:1px solid #EAEAEA"
   width="100%"
   height="680"
   frameborder="0"
   allow="microphone"
-></iframe>
+></iframe> -->
 
+<script src="https://cdn.popupsmart.xyz/bundle.js" data-id="421735" async defer></script>
 
+<script src="https://cdn.popupsmart.xyz/bundle.js" data-id="421735" async defer></script>
 
   <!-- Popupsmart embed kodu buraya -->
 </body>
