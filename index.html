@@ -3,71 +3,36 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>QA Test – Chatbot & Popup</title>
+  <title>QA Test – Popupsmart Yönlendirme</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 720px;
+      margin: 40px auto;
+      line-height: 1.6;
+    }
+  </style>
 </head>
+
 <body>
 
+  <h1>QA Test Sayfası</h1>
+  <p>Bu sayfa Popupsmart JS fonksiyon entegrasyonunu test etmek içindir.</p>
+  <a href="/pricing">Pricing</a> · <a href="/blog">Blog</a>
+  <div style="height: 1200px"></div>
+
+  <!-- ✅ Popupsmart yönlendirme fonksiyonu -->
   <script>
-    // Benzersiz kullanıcı ID üret
-    function generateUniqueId() {
-      const timestamp = Date.now();
-      const randomString = Math.random().toString(36).substring(2, 15);
-      return `user_${timestamp}_${randomString}`;
-    }
-
-    // LiveChatAI kimlik bilgileri
-    window.lc = window.lc || {};
-    window.lc.debug = true; // Testte log aç
-    window.lc.identity = {
-      distinctId: generateUniqueId(),
-      name: 'tunahany',
-      email: 'yenitunahan9@dbo.com',
-      consent: true,
-    };
-
-    console.log('Generated distinctId:', window.lc.identity.distinctId);
-  </script>
-
-  <main style="max-width:720px;margin:40px auto;font:16px/1.6 sans-serif">
-    <h1>QA Test Sayfası</h1>
-    <p>Bu sayfa Popupsmart ve LiveChatAI entegrasyonunu test etmek içindir.</p>
-    <a href="/pricing">Pricing</a> · <a href="/blog">Blog</a>
-    <div style="height:1200px"></div>
-  </main>
-
-  <!-- ✅ LiveChatAI embed -->
-  <script
-    src="https://app-dev.livechatai.com/embed.js"
-    data-id="cmfqoldpo0001l404mu36wm2a"
-    async defer>
-  </script>
-
-  <!-- ✅ Chat Widget Trigger Function -->
-  <script>
-    // Popupsmart "Function Name": window.openChatWidget()
+    // Popupsmart → Action → Call JS Function: window.openChatWidget()
     window.openChatWidget = function () {
-      console.log("openChatWidget() called");
-
-      // Retry mekanizmalı versiyon (widget yavaş yüklenirse bekler)
-      let tries = 0;
-      const tryOpen = setInterval(() => {
-        if (window.lc && typeof window.lc.open === "function") {
-          console.log("⚡ Chat Widget Opening...");
-          window.lc.open();
-          clearInterval(tryOpen);
-        } else if (tries > 10) {
-          console.warn("❌ Chat Widget yüklenemedi (10 deneme başarısız)");
-          clearInterval(tryOpen);
-        } else {
-          tries++;
-          console.log(`⏳ Widget henüz hazır değil... (${tries}/10)`);
-        }
-      }, 1000);
+      console.log("Popup tetiklendi, Popupsmart.com'a yönlendiriliyor...");
+      window.open("https://popupsmart.com/", "_blank");
     };
   </script>
 
-  <!-- ▼ Popupsmart embed burada olacak -->
-  <!-- (Popupsmart embed script'ini buraya ekle) -->
+  <!-- ✅ (Opsiyonel) Popupsmart embed script -->
+  <!-- Eğer kendi popup’unu test edeceksen, Popupsmart embed kodunu buraya ekle -->
+  <!-- Örn: <script src="https://cdn.popupsmart.com/api/your-embed-code.js" async defer></script> -->
 
 </body>
 </html>
