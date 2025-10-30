@@ -1,55 +1,33 @@
 <!doctype html>
 <html lang="tr">
+
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>QA Test – Chatbot & Popup</title>
 </head>
+
 <body>
 
-<script>
-      // Function to generate unique ID
-      function generateUniqueId() {
-        const timestamp = Date.now();
-        const randomString = Math.random().toString(36).substring(2, 15);
-        return `user_${timestamp}_${randomString}`;
-      }
-      window.lc = window.lc || {};
-      window.lc.debug = true; // Optional: Turn on for debugging; remove in production
-      window.lc.identity = {
-        distinctId: generateUniqueId(),
-         name: 'tunahany', 
-        email: 'yenitunahan9@dbo.com',
-        consent: true,
-   /*      attributes: {
-            memberid: 6990509,
-            plan_id: 440,
-            sponsor_id: 53,
-            state: 'none',
-            country: 'United States',
-            benefit_name: 'MSA Benefits',
-            benefit_class: 'none',
-            member_status: 6,
-            primary_coach: 'ddavis@mysecureadvantage.com',
-            is_disconnected: false,
-            enrolledinmonitoring: false,
-            age: 48,
-            pfw_score: 8.5,
-            income: '$$100,000 to $124,999',
-            marital_status: 'yes',
-            dependents: 'yes',
-        } */
-      };
-      console.log('Generated distinctId:', window.lc.identity.distinctId);
-    </script>
+  <script>
+    // Function to generate unique ID
+    function generateUniqueId() {
+      const timestamp = Date.now();
+      const randomString = Math.random().toString(36).substring(2, 15);
+      return `user_${timestamp}_${randomString}`;
+    }
 
+    window.lc = window.lc || {};
+    window.lc.debug = true;
+    window.lc.identity = {
+      distinctId: generateUniqueId(),
+      name: 'tunahany',
+      email: 'yenitunahan9@dbo.com',
+      consent: true,
+    };
 
-
-
-
-
-
-
+    console.log('Generated distinctId:', window.lc.identity.distinctId);
+  </script>
 
   <main style="max-width:720px;margin:40px auto;font:16px/1.6 sans-serif">
     <h1>QA Test Sayfası</h1>
@@ -58,24 +36,34 @@
     <div style="height:1200px"></div>
   </main>
 
-  <!-- Chatbot embed kodu (Livechatai vb.) buraya -->
-<script
-  src="https://app-dev.livechatai.com/embed.js"
-  data-id="cmfcfhkrp0001l5048noanomq"
-  async defer>
-</script>
+
+  <!-- ✅ LiveChatAI embed -->
+  <script
+    src="https://app-dev.livechatai.com/embed.js"
+    data-id="cmfcfhkrp0001l5048noanomq"
+    async defer>
+  </script>
 
 
-<!-- <iframe
-  src="https://app-dev.livechatai.com/aibot-iframe/cmfcfhkrp0001l5048noanomq"
-  style="border:1px solid #EAEAEA"
-  width="100%"
-  height="680"
-  frameborder="0"
-  allow="microphone"
-></iframe> -->
+  <!-- ✅ Chat Widget Trigger Function -->
+  <script>
+    // Popupsmart → Function Name: window.openChatWidget()
+    window.openChatWidget = function () {
+      console.log("openChatWidget() called");
 
+      // LiveChat script yüklendi mi?
+      if (window.lc && typeof window.lc.open === "function") {
+        console.log("⚡ Chat Widget Opening...");
+        window.lc.open();
+      } else {
+        console.warn("❌ Chat Widget henüz yüklenmedi!");
+      }
+    };
+  </script>
 
-  <!-- Popupsmart embed kodu buraya -->
+  <!-- ▼ Popupsmart embed burada olacak -->
+  <script src="https://cdn.popupsmart.xyz/bundle.js" data-id="421819" async defer></script>
+
 </body>
+
 </html>
