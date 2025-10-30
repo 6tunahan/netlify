@@ -1,24 +1,23 @@
 <!doctype html>
 <html lang="tr">
-
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>QA Test – Chatbot & Popup</title>
 </head>
-
 <body>
 
   <script>
-    // Function to generate unique ID
+    // Benzersiz kullanıcı ID üret
     function generateUniqueId() {
       const timestamp = Date.now();
       const randomString = Math.random().toString(36).substring(2, 15);
       return `user_${timestamp}_${randomString}`;
     }
 
+    // LiveChatAI kimlik bilgileri
     window.lc = window.lc || {};
-    window.lc.debug = true;
+    window.lc.debug = true; // Testte log aç
     window.lc.identity = {
       distinctId: generateUniqueId(),
       name: 'tunahany',
@@ -31,39 +30,44 @@
 
   <main style="max-width:720px;margin:40px auto;font:16px/1.6 sans-serif">
     <h1>QA Test Sayfası</h1>
-    <p>Bu sayfa Popupsmart ve Chatbot davranışlarını test etmek içindir.</p>
+    <p>Bu sayfa Popupsmart ve LiveChatAI entegrasyonunu test etmek içindir.</p>
     <a href="/pricing">Pricing</a> · <a href="/blog">Blog</a>
     <div style="height:1200px"></div>
   </main>
 
-
   <!-- ✅ LiveChatAI embed -->
   <script
     src="https://app-dev.livechatai.com/embed.js"
-    data-id="cmfcfhkrp0001l5048noanomq"
+    data-id="cmfqoldpo0001l404mu36wm2a"
     async defer>
   </script>
 
-
   <!-- ✅ Chat Widget Trigger Function -->
   <script>
-    // Popupsmart → Function Name: window.openChatWidget()
+    // Popupsmart "Function Name": window.openChatWidget()
     window.openChatWidget = function () {
       console.log("openChatWidget() called");
 
-      // LiveChat script yüklendi mi?
-      if (window.lc && typeof window.lc.open === "function") {
-        console.log("⚡ Chat Widget Opening...");
-        window.lc.open();
-      } else {
-        console.warn("❌ Chat Widget henüz yüklenmedi!");
-      }
+      // Retry mekanizmalı versiyon (widget yavaş yüklenirse bekler)
+      let tries = 0;
+      const tryOpen = setInterval(() => {
+        if (window.lc && typeof window.lc.open === "function") {
+          console.log("⚡ Chat Widget Opening...");
+          window.lc.open();
+          clearInterval(tryOpen);
+        } else if (tries > 10) {
+          console.warn("❌ Chat Widget yüklenemedi (10 deneme başarısız)");
+          clearInterval(tryOpen);
+        } else {
+          tries++;
+          console.log(`⏳ Widget henüz hazır değil... (${tries}/10)`);
+        }
+      }, 1000);
     };
   </script>
 
   <!-- ▼ Popupsmart embed burada olacak -->
-  <script src="https://cdn.popupsmart.xyz/bundle.js" data-id="421819" async defer></script>
+  <!-- (Popupsmart embed script'ini buraya ekle) -->
 
 </body>
-
 </html>
